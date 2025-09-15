@@ -3,14 +3,16 @@ const { startOrderGenerator, stopOrderGenerator } = require("./src/orderGenerato
 
 console.log('Starting customer and/or order generator. Press Ctrl+C to stop.');
 
+// console.log("BACKEND_URL:", process.env.BACKEND_URL);
+
 // Start the customer generator
-// startCustomerGenerator();
+startCustomerGenerator();
 startOrderGenerator();
 
 // Handle graceful shutdown by listening for termination signals
 const shutdown = () => {
     console.log('\nShutting down...');
-    // stopCustomerGenerator();
+    stopCustomerGenerator();
     stopOrderGenerator();
     process.exit(0);
 };

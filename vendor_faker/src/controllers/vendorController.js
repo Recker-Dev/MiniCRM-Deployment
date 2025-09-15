@@ -3,7 +3,7 @@ import axios from "axios";
 // Vendor sends delivery receipts back to CRM
 async function deliveryApi(results) {
     try {
-        const response = await axios.post("http://localhost:3000/api/receipts", results, {
+        const response = await axios.post(`${process.env.BACKEND}/api/receipts`, results, {
             headers: { "Content-Type": "application/json" }
         });
 

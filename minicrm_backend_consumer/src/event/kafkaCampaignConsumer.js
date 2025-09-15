@@ -22,7 +22,7 @@ const processBatch = async () => {
   const campaignList = Array.from(batchBuffer.values());
 
   try {
-    await axios.post("http://localhost:3500/vendor", campaignList, {
+    await axios.post(`${process.env.VENDOR_BACKEND}/vendor`, campaignList, {
       timeout: 5000,
     });
     console.log(`📬 Sent ${campaignList.length} requests to vendor.`);

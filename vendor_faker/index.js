@@ -1,14 +1,15 @@
 // src/index.js
 import express from "express";
 import cors from "cors";
-
 import vendorRoutes from './src/routes/vendorRoutes.js';
-
+import dotenv from "dotenv";
+dotenv.config(); 
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
+console.log("BACKEND env:", JSON.stringify(process.env.BACKEND));
 
 // Routes
 app.use("/vendor", vendorRoutes);

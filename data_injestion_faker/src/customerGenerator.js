@@ -23,7 +23,7 @@ const generateRandomCustomer = () => {
 const postRandomCustomer = async () => {
     const customerData = generateRandomCustomer();
     try {
-        const response = await axios.post('http://localhost:3000/api/customers', customerData);
+        const response = await axios.post(`${process.env.BACKEND_URL}/api/customers`, customerData);
         console.log(`[CUSTOMER GENERATOR] Response message:`, response.data.message);
     } catch (error) {
         if (error.response && error.response.data) {

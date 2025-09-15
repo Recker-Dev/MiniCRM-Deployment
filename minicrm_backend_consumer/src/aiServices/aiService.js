@@ -7,38 +7,6 @@ export function cleanAIResponse(raw) {
     return raw.replace(/```json/g, "").replace(/```/g, "").trim();
 }
 
-export async function getIntent(segment) {
-    const prompt = `
-Translate this JSON segment into a structured human-readable targeting description.
-Return ONLY valid JSON that matches this schema:
-
-{
-  "intent": string   // human-readable text like "customers with spend less than ₹5000"
-}
-
-Segment:
-${JSON.stringify(segment, null, 2)}
-`;
-
-    try {
-        const response = await ai.models.generateContent({
-            model: "gemini-2.5-flash-lite",
-            contents: prompt,
-        });
-
-        const parsedResponse = JSON.parse(cleanAIResponse(response.text));
-        // console.log(parsedResponse)
-
-        return parsedResponse.intent;
-
-    } catch (error) {
-        console.error("Error generating or parsing intent:", error);
-        return '';
-    }
-}
-
-
-
 
 export async function getCampaignSummary(campaignName, intent, segment, audience, sent, fail) {
     const prompt = `
