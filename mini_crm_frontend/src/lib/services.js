@@ -30,7 +30,7 @@ export const getUserCampaigns = async (userId) => {
   try {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/campaigns/get`,
-      userId 
+      {userId} 
     );
 
     return response.data; // expect array of campaigns
