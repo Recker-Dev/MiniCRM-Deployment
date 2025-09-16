@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { toast } from 'sonner';
 import RuleGroup from "@/components/RuleGroup";
 import useCampaignStore from "@/stores/campaignStore";
@@ -19,10 +19,11 @@ const CreateCampaign = ({ attributes, operators }) => {
   const setCustomers = useCampaignStore((s) => s.setCustomers);
   const setModalOpen = useCampaignStore((s) => s.setModalOpen);
 
-
+  const [gettingAud, setGetAud] = useState(false);
 
   const handleGetEstimate = async () => {
     try {
+      setGetAud(true);
       const { size, customers } = await getCustomerDetails(ruleGroup);
       setAudienceSize(size);
       setCustomers(customers);
@@ -30,6 +31,8 @@ const CreateCampaign = ({ attributes, operators }) => {
     } catch (err) {
       toast.error("Failed to get audience estimate. Please check your rules.");
       setAudienceSize(null);
+    } finally {
+      setGetAud(false);
     }
   };
 
@@ -115,9 +118,13 @@ const CreateCampaign = ({ attributes, operators }) => {
       <div className="mt-6 flex justify-center">
         <button
           onClick={handleGetEstimate}
-          className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition shadow-lg flex items-center space-x-2 animate-pulse-once"
+          disabled={gettingAud}
+          className={`px-6 py-3 rounded-lg transition shadow-lg flex items-center space-x-2 ${gettingAud
+              ? "bg-gray-400 text-gray-100 cursor-not-allowed"
+              : "bg-blue-600 hover:bg-blue-700 text-white"
+            }`}
         >
-          <span>Get Audience Estimate</span>
+          {gettingAud ? "Getting..." : "Get Audience Estimate"}
         </button>
       </div>
 

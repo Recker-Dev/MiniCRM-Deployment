@@ -44,6 +44,7 @@ services:
         condition: service_healthy
     networks:
       - minicrm_net
+    restart: always
 
   # --- Consumer ---
   consumer:
