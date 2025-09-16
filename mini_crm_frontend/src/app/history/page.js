@@ -15,6 +15,7 @@ const CampaignHistory = () => {
   const loading = status === "loading";
   const router = useRouter();
 
+
   useEffect(() => {
     // Only redirect if the session has finished loading and the user is not authenticated
     if (!loading && !session) {
@@ -30,15 +31,19 @@ const CampaignHistory = () => {
   const [filterStatus, setFilterStatus] = useState('all');
   const [expandedId, setExpandedId] = useState(null);
 
+  const [gettingCampaigns, setGettingCampaigns] = useState(false);
 
   useEffect(() => {
     if (session?.user) {
+      setGettingCampaigns(true);
       (async () => {
         try {
           const campaigns = await getUserCampaigns(session.user.googleId);
           setCampaigns(campaigns);
         } catch (err) {
           console.error("Error loading campaigns:", err);
+        } finally {
+          setGettingCampaigns(false);
         }
       })();
     }
@@ -111,7 +116,11 @@ const CampaignHistory = () => {
           </div>
         </div>
 
-        {filteredCampaigns.length === 0 ? (
+        {gettingCampaigns ? (
+          <div className="text-center text-gray-500 py-12">
+            Loading your campaigns...
+          </div>
+        ) : filteredCampaigns.length === 0 ? (
           <div className="text-center text-gray-500 py-12">
             No campaigns found matching your criteria.
           </div>
@@ -163,11 +172,11 @@ const CampaignHistory = () => {
                       <td className="px-6 py-4">
                         <span
                           className={`px-2 py-1 text-xs font-medium rounded-full whitespace-nowrap
-                          ${campaign.status === "active" ? "bg-green-100 text-green-800" : ""}
-                          ${campaign.status === "completed" ? "bg-blue-100 text-blue-800" : ""}
-                          ${campaign.status === "paused" ? "bg-yellow-100 text-yellow-800" : ""}
-                          ${campaign.status === "failed" ? "bg-red-100 text-red-800" : ""}
-                        `}
+                            ${campaign.status === "active" ? "bg-green-100 text-green-800" : ""}
+                            ${campaign.status === "completed" ? "bg-blue-100 text-blue-800" : ""}
+                            ${campaign.status === "paused" ? "bg-yellow-100 text-yellow-800" : ""}
+                            ${campaign.status === "failed" ? "bg-red-100 text-red-800" : ""}
+                          `}
                         >
                           {campaign.status}
                         </span>
