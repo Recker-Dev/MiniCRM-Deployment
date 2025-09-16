@@ -1,4 +1,4 @@
-# MiniCRM - Deployment Guide
+# MiniCRM - Local Deployment Guide
 
 This instance of the project focuses on local deplyment using **Docker Compose** to manage all services (backend, frontend, database, Kafka, and optional data ingestion).
 
