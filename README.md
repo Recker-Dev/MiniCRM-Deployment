@@ -1,4 +1,4 @@
-# MiniCRM - Deployment Guide
+# MiniCRM - Local Deployment Guide
 
 This instance of the project focuses on local deplyment using **Docker Compose** to manage all services (backend, frontend, database, Kafka, and optional data ingestion).
 
@@ -25,8 +25,8 @@ BACKEND_URL=http://backend:3000
 ```env
 PORT=5173
 NEXTAUTH_URL=http://localhost:5173
-NEXT_PUBLIC_BACKEND_URI=http://minicrm.reckerdev.in
-NEXT_PUBLIC_AUTH_URI=http://minicrm.reckerdev.in
+NEXT_PUBLIC_BACKEND_URI=http://backend:3000
+NEXT_PUBLIC_AUTH_URI=http://backend:3000
 NEXTAUTH_SECRET=***
 GOOGLE_CLIENT_SECRET=***
 GOOGLE_CLIENT_ID=***
