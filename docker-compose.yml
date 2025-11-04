@@ -1,34 +1,34 @@
 services:
 # --- Frontend Service ---
-  frontend:
+  minicrm-frontend:
     build:
       context: ./mini_crm_frontend
       dockerfile: Dockerfile
-    container_name: mini-crm-frontend
+    container_name: minicrm-frontend
     env_file:
       - ./mini_crm_frontend/.env
     networks:
       - recker-net
       - shared-net
     restart: unless-stopped
-    # ports:
-    #   - "5173:5173"
+    ports:
+      - "5173:5173"
     depends_on:
-      backend:
+      minicrm-backend:
         condition: service_started
-      consumer:
+      minicrm-kafka-consumer-service:
         condition: service_started
-      vendor:
+      minicrm-vendor-service:
         condition: service_started
-      data_injestion:
+      minicrm-data-injestion-service:
         condition: service_started
 
   # --- Backend API ---
-  backend:
+  minicrm-backend:
     build:
       context: ./minicrm_backend
       dockerfile: Dockerfile
-    container_name: minicrm_backend
+    container_name: minicrm-backend
     env_file:
       - ./minicrm_backend/.env
     networks:
@@ -37,41 +37,41 @@ services:
     restart: always
 
   # --- Consumer ---
-  consumer:
+  minicrm-kafka-consumer-service:
     build:
       context: ./minicrm_backend_consumer
       dockerfile: Dockerfile
-    container_name: minicrm_consumer
+    container_name: minicrm-kafka-consumer-service
     env_file:
       - ./minicrm_backend_consumer/.env
     depends_on:
-      - backend
+      - minicrm-backend
     networks:
       - recker-net
       - shared-net
 
   # --- Vendor Service ---
-  vendor:
+  minicrm-vendor-service:
     build:
       context: ./vendor_faker
       dockerfile: Dockerfile
-    container_name: vendor_faker
+    container_name: minicrm-vendor-service
     depends_on:
-      - backend
+      - minicrm-backend
     networks:
       - recker-net
 
   # --- Data Ingestion (faker) ---
-  data_injestion:
+  minicrm-data-injestion-service:
     build:
       context: ./data_injestion_faker
       dockerfile: Dockerfile
-    container_name: data_injestion_faker
+    container_name: minicrm-data-injestion-service
     env_file:
     - ./data_injestion_faker/.env
     depends_on:
-      - backend
-      - consumer
+      - minicrm-backend
+      - minicrm-kafka-consumer-service
     networks:
       - recker-net
 
