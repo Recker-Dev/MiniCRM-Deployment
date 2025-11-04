@@ -8,54 +8,20 @@ This instance of the project focuses on local deplyment using **Docker Compose**
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/)
 - Valid Google OAuth Crendentials, Gemini API Key
+- Kafka and Postgres, Refer to my [Setup Guide](https://github.com/Recker-Dev/Infra-Bootstrap)
 ---
 
 ## 🔑 Environment Variables
 
-Each service has its own `.env` file located in its folder. Below are the required variables.
+Each service must have its own `.env` file located in its folder. A `.env_dev` is provided for quick setup.
 
----
 
-### 📂 `data_injestion_faker/.env`
-```env
-BACKEND_URL=http://backend:3000
-```
-
-### 📂 `mini_crm_frontend/.env`
-```env
-PORT=5173
-NEXTAUTH_URL=http://localhost:5173
-NEXT_PUBLIC_BACKEND_URI=http://localhost:3000
-NEXT_PUBLIC_AUTH_URI=http://backend:3000
-NEXTAUTH_SECRET=***
-GOOGLE_CLIENT_SECRET=***
-GOOGLE_CLIENT_ID=***
-```
-
-### 📂 `minicrm_backend/.env`
-```env
-DATABASE_URL="postgresql://minicrm_user:***@db:5432/minicrm?schema=public"
-GEMINI_API_KEY=***
-KAFKA_SERVICE_CONTAINER=kafka
-```
-
-### 📂 `minicrm_backend_consumer/.env`
-```env
-DATABASE_URL="postgresql://minicrm_user:***@db:5432/minicrm?schema=public"
-GEMINI_API_KEY=***
-KAFKA_SERVICE_CONTAINER=kafka
-VENDOR_BACKEND=http://vendor:3500
-```
-
-### 📂 `vendor_faker/.env`
-```env
-BACKEND=http://backend:3000
-```
 
 ### ⚠️ Note:
 
  - Replace *** with your real secrets locally.
 
+---
 
 ## 🛠️ Commands [Setup Environment Variables Before Proceeding ]
 
