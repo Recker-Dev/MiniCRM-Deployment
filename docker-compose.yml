@@ -11,8 +11,8 @@ services:
       - recker-net
       - shared-net
     restart: unless-stopped
-    ports:
-      - "5173:5173"
+    # ports:
+    #   - "5173:5173"
     depends_on:
       backend:
         condition: service_started
