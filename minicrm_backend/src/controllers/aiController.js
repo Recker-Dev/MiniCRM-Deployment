@@ -54,7 +54,7 @@ Return JSON only in this shape:
                 raw: text,
             });
         }
-
+        console.log(suggestionsJson);
         res.status(200).json(suggestionsJson);
     } catch (err) {
         console.error("AI error:", err);

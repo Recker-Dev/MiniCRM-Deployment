@@ -27,7 +27,7 @@ ${JSON.stringify(segment, null, 2)}
         });
 
         const parsedResponse = JSON.parse(cleanAIResponse(response.text));
-        // console.log(parsedResponse)
+        console.log(parsedResponse);
 
         return parsedResponse.intent;
 

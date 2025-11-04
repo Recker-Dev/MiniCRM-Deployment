@@ -37,7 +37,7 @@ export const sendMessage = async (topic, data) => {
                 { value: JSON.stringify(data) },
             ],
         });
-        // console.log(`Message sent to topic "${topic}":`, data);
+        console.log(`Message sent to topic "${topic}":`, data);
     } catch (error) {
         console.error(`Error sending message to topic "${topic}":`, error);
     }
